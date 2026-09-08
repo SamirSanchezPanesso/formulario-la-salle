@@ -11,13 +11,8 @@ from storage import init_database, save_contact
 from validators import validate_contact
 
 
-# ============================================================
-# Rutas y configuración
-# ============================================================
-
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
-
 CONFIG = get_config()
 
 logging.basicConfig(
@@ -27,28 +22,15 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger("formulario_lasalle")
 
-
-# ============================================================
-# CORS
-# ============================================================
-
-# GitHub Pages usa únicamente el ORIGEN:
-# https://samirsanchezpanesso.github.io
-#
-# No se debe poner:
-# https://samirsanchezpanesso.github.io/formulario-la-salle/
-
 DEFAULT_ALLOWED_ORIGINS = {
     "https://samirsanchezpanesso.github.io",
+    "https://formulario-la-salle.onrender.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://localhost:5500",
     "http://127.0.0.1:5500",
 }
 
-# Permite añadir más orígenes mediante una variable de entorno:
-#
-# ALLOWED_ORIGINS=https://ejemplo.com,https://otro-ejemplo.com
 extra_origins = {
     origin.strip().rstrip("/")
     for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
@@ -57,23 +39,10 @@ extra_origins = {
 
 ALLOWED_ORIGINS = DEFAULT_ALLOWED_ORIGINS | extra_origins
 
-
-# ============================================================
-# Inicialización de la base de datos
-# ============================================================
-
 init_database(CONFIG.database)
 
 
-# ============================================================
-# Servidor HTTP
-# ============================================================
-
 class RequestHandler(BaseHTTPRequestHandler):
-
-    # --------------------------------------------------------
-    # Logs
-    # --------------------------------------------------------
 
     def log_message(self, format, *args):
         if CONFIG.debug:
@@ -82,10 +51,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.address_string(),
                 format % args,
             )
-
-    # --------------------------------------------------------
-    # CORS
-    # --------------------------------------------------------
 
     def get_request_origin(self):
         origin = self.headers.get("Origin")
@@ -98,8 +63,6 @@ class RequestHandler(BaseHTTPRequestHandler):
     def is_origin_allowed(self):
         origin = self.get_request_origin()
 
-        # Si no existe Origin, normalmente es una petición
-        # directa al servidor, curl, navegador mismo dominio, etc.
         if origin is None:
             return True
 
@@ -133,12 +96,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             "86400",
         )
 
-    # --------------------------------------------------------
-    # Respuestas JSON
-    # --------------------------------------------------------
-
     def send_json(self, status, payload):
-
         body = json.dumps(
             payload,
             ensure_ascii=False,
@@ -164,15 +122,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.add_cors_headers()
 
         self.end_headers()
-
         self.wfile.write(body)
 
-    # --------------------------------------------------------
-    # Archivos estáticos
-    # --------------------------------------------------------
-
     def send_file(self, file_path):
-
         file_path = file_path.resolve()
 
         if not file_path.exists() or not file_path.is_file():
@@ -217,15 +169,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         )
 
         self.end_headers()
-
         self.wfile.write(content)
 
-    # --------------------------------------------------------
-    # Preflight CORS
-    # --------------------------------------------------------
-
     def do_OPTIONS(self):
-
         path = urlparse(self.path).path
 
         allowed_paths = {
@@ -247,35 +193,20 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         self.send_response(204)
-
         self.add_cors_headers()
-
-        self.send_header(
-            "Content-Length",
-            "0",
-        )
-
+        self.send_header("Content-Length", "0")
         self.end_headers()
 
-    # --------------------------------------------------------
-    # GET
-    # --------------------------------------------------------
-
     def do_GET(self):
-
         path = urlparse(self.path).path
 
-        # Página principal cuando se accede directamente
-        # al servidor Python / Render.
         if path == "/":
             self.send_file(
                 STATIC_DIR / "index.html"
             )
             return
 
-        # Devuelve ambiente actual
         if path == "/api/environment":
-
             if not self.is_origin_allowed():
                 self.send_json(
                     403,
@@ -295,9 +226,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             )
             return
 
-        # Endpoint para comprobar si Render está activo
         if path == "/health":
-
             self.send_json(
                 200,
                 {
@@ -307,18 +236,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             )
             return
 
-        # Archivos estáticos
         if path.startswith("/static/"):
-
             relative = path.removeprefix("/static/")
-
-            target = (
-                STATIC_DIR / relative
-            ).resolve()
-
+            target = (STATIC_DIR / relative).resolve()
             static_root = STATIC_DIR.resolve()
 
-            # Protección contra path traversal
             if (
                 target != static_root
                 and static_root not in target.parents
@@ -331,12 +253,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         self.send_error(404)
 
-    # --------------------------------------------------------
-    # POST
-    # --------------------------------------------------------
-
     def do_POST(self):
-
         path = urlparse(self.path).path
 
         if path != "/api/contact":
@@ -349,7 +266,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             )
             return
 
-        # Verificar origen
         if not self.is_origin_allowed():
             self.send_json(
                 403,
@@ -359,10 +275,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 },
             )
             return
-
-        # ----------------------------------------------------
-        # Leer cuerpo de la petición
-        # ----------------------------------------------------
 
         try:
             length = int(
@@ -382,7 +294,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 )
                 return
 
-            # Evita peticiones excesivamente grandes.
             if length > 1_000_000:
                 self.send_json(
                     413,
@@ -418,10 +329,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             )
             return
 
-        # ----------------------------------------------------
-        # Validaciones
-        # ----------------------------------------------------
-
         errors = validate_contact(data)
 
         if errors:
@@ -429,20 +336,13 @@ class RequestHandler(BaseHTTPRequestHandler):
                 422,
                 {
                     "ok": False,
-                    "message": (
-                        "Revisa los campos del formulario."
-                    ),
+                    "message": "Revisa los campos del formulario.",
                     "errors": errors,
                 },
             )
             return
 
-        # ----------------------------------------------------
-        # Guardar en base de datos
-        # ----------------------------------------------------
-
         try:
-
             record_id = save_contact(
                 CONFIG.database,
                 data,
@@ -458,9 +358,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 500,
                 {
                     "ok": False,
-                    "message": (
-                        "Ocurrió un error al guardar el mensaje."
-                    ),
+                    "message": "Ocurrió un error al guardar el mensaje.",
                 },
             )
             return
@@ -476,20 +374,13 @@ class RequestHandler(BaseHTTPRequestHandler):
             201,
             {
                 "ok": True,
-                "message": (
-                    "Tu mensaje fue enviado correctamente."
-                ),
+                "message": "Tu mensaje fue enviado correctamente.",
                 "id": record_id,
             },
         )
 
 
-# ============================================================
-# Crear servidor
-# ============================================================
-
 def create_server(host=None, port=None):
-
     resolved_host = (
         host
         or os.getenv(
@@ -515,19 +406,11 @@ def create_server(host=None, port=None):
     )
 
 
-# ============================================================
-# Ejecutar
-# ============================================================
-
 def main():
-
     server = create_server()
 
     LOGGER.warning(
-        (
-            "Formulario La Salle ejecutándose "
-            "en http://%s:%s con ambiente %s"
-        ),
+        "Formulario La Salle ejecutándose en http://%s:%s con ambiente %s",
         server.server_address[0],
         server.server_address[1],
         CONFIG.name,
