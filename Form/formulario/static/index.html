@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulario de contacto La Salle</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<main class="shell">
+<section class="brand-panel">
+<div class="brand-mark">LS</div>
+<p class="eyebrow">La Salle</p>
+<h1>Hablemos</h1>
+<p class="lead">Envíanos tu consulta y nuestro equipo podrá revisar la información registrada desde un ambiente controlado.</p>
+<div class="environment-card">
+<span>Ambiente activo</span>
+<strong id="environment">Cargando</strong>
+</div>
+</section>
+<section class="form-panel">
+<p class="eyebrow">Contacto</p>
+<h2>Formulario de contacto La Salle</h2>
+<p class="intro">Completa todos los campos. Validaremos el correo antes de almacenar el mensaje.</p>
+<form id="contact-form" novalidate>
+<label for="name">Nombre</label>
+<input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre">
+<p class="error" id="name-error"></p>
+<label for="email">Correo electrónico</label>
+<input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com">
+<p class="error" id="email-error"></p>
+<label for="subject">Asunto</label>
+<input id="subject" name="subject" type="text" placeholder="Motivo de contacto">
+<p class="error" id="subject-error"></p>
+<label for="message">Mensaje</label>
+<textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje"></textarea>
+<p class="error" id="message-error"></p>
+<button type="submit">Enviar mensaje</button>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+</form>
+</section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

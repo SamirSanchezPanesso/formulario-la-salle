@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: formulario-contacto-lasalle
+    runtime: python
+    buildCommand: echo "Sin dependencias externas"
+    startCommand: python app.py
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
