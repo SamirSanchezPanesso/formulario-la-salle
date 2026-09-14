@@ -25,3 +25,5 @@ En Sistemas operativos Linux / macOS:
 •	Para iniciar en Desarrollo: Ejecute el comando ./run_development.sh. 
 •	Para iniciar en Pruebas: Ejecute el comando ./run_testing.sh. 
 •	Para iniciar en Producción: Ejecute el comando ./run_production.sh.
+
+Futuros ajustes y documentación.
