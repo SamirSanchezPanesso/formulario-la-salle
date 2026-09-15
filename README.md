@@ -1,5 +1,6 @@
-Desarrollo de Aplicación Web en 3 Ambientes - Versión Producción Principal
+Versión Producción Principal
 
+Desarrollo de Aplicación Web en 3 Ambientes: Ambiente de desarrollo_Ambiente de pruebas_Ambiente de producción 
 Tecnologías:
 •	Python 3: Utilizado como motor para el servidor HTTP, la API, la gestión de la configuración y la ejecución de pruebas. Su justificación radica en que permite una ejecución completamente reproducible sin depender de librerías externas complejas. 
 •	HTML5, CSS3 y JavaScript: Empleados para el diseño de la interfaz de usuario, la validación visual en el cliente y el consumo asíncrono de la API. Se seleccionaron por ser tecnologías estándar en cualquier navegador web y altamente compatibles para despliegues rápidos. 
