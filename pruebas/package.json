@@ -1,0 +1,8 @@
+{
+  "name": "evaluacion-formulario-la-salle",
+  "private": true,
+  "description": "Seis pruebas locales para la entrega de Ingeniería de Software",
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

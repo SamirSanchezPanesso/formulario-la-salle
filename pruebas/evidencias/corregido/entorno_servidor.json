@@ -1,0 +1,6 @@
+{
+  "base_url": "http://127.0.0.1:40823",
+  "database": "/tmp/lasalle_qa_at0x6d_w/corregido/data/contacts_testing.db",
+  "environment": "testing",
+  "additional_allowed_origin": "http://127.0.0.1:40823"
+}

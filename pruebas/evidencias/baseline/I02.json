@@ -1,0 +1,74 @@
+{
+  "id": "I02",
+  "name": "Nombre nulo por API sin inserción",
+  "inputs": {
+    "name": null,
+    "email": "ana.prueba@example.com",
+    "subject": "Consulta académica",
+    "message": "Solicito información del programa."
+  },
+  "expected": {
+    "http_status": 422,
+    "ok": false,
+    "errors_contains": "name",
+    "new_rows": 0
+  },
+  "observed": {
+    "request": {
+      "method": "POST",
+      "path": "/api/contact"
+    },
+    "response": {
+      "status": 500,
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.14",
+        "Date": "Mon, 26 Oct 2026 10:15:23 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "68",
+        "Cache-Control": "no-store",
+        "Access-Control-Allow-Origin": "http://127.0.0.1:33747",
+        "Vary": "Origin",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400"
+      },
+      "body": {
+        "ok": false,
+        "message": "Ocurrió un error al guardar el mensaje."
+      }
+    },
+    "rows_before": [],
+    "rows_after": []
+  },
+  "actual_assertions": [
+    {
+      "label": "La API responde HTTP 422",
+      "passed": false
+    },
+    {
+      "label": "La respuesta declara ok=false",
+      "passed": true
+    },
+    {
+      "label": "La respuesta identifica el campo name",
+      "passed": false
+    },
+    {
+      "label": "SQLite no recibe registros inválidos",
+      "passed": true
+    }
+  ],
+  "status": "FALLIDO",
+  "started_at_utc": "2026-10-26T10:15:23.742941+00:00",
+  "finished_at_utc": "2026-10-26T10:15:23.745247+00:00",
+  "duration_seconds": 0.002305,
+  "variant": "baseline",
+  "execution": "real local execution",
+  "environment": {
+    "APP_ENV": "testing",
+    "base_url": "http://127.0.0.1:33747",
+    "database_scope": "temporary copy of the application",
+    "additional_allowed_origin": "http://127.0.0.1:33747",
+    "python_version": "3.12.14"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "U02",
+  "name": "Rechazo de nombre nulo",
+  "inputs": {
+    "name": null,
+    "email": "ana.prueba@example.com",
+    "subject": "Consulta académica",
+    "message": "Solicito información del programa."
+  },
+  "expected": {
+    "errors_contains": "name",
+    "message": "Este campo debe ser texto."
+  },
+  "observed": {
+    "errors": {
+      "name": "Este campo debe ser texto."
+    }
+  },
+  "actual_assertions": [
+    {
+      "label": "El valor null produce un error para name",
+      "passed": true
+    }
+  ],
+  "status": "APROBADO",
+  "started_at_utc": "2026-10-26T10:15:26.176478+00:00",
+  "finished_at_utc": "2026-10-26T10:15:26.176516+00:00",
+  "duration_seconds": 3.2e-05,
+  "variant": "corregido",
+  "execution": "real local execution",
+  "environment": {
+    "APP_ENV": "testing",
+    "base_url": "http://127.0.0.1:41343",
+    "database_scope": "temporary copy of the application",
+    "additional_allowed_origin": "http://127.0.0.1:41343",
+    "python_version": "3.12.14"
+  }
+}

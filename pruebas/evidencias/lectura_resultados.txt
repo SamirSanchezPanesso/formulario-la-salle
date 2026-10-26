@@ -1,0 +1,15 @@
+RESUMEN DERIVADO DE LAS EVIDENCIAS JSON
+Fuente original: e4fdc4a7fc8f487cee1f6dc0c165512e2c547688
+Fecha de ejecución UTC: 2026-10-26T10:15:28.536750+00:00
+
+U01 | original: APROBADO | corregido: APROBADO
+U02 | original: FALLIDO | corregido: APROBADO
+I01 | original: APROBADO | corregido: APROBADO
+I02 | original: FALLIDO | corregido: APROBADO
+F01 | original: FALLIDO | corregido: APROBADO
+F02 | original: APROBADO | corregido: APROBADO
+
+Los seis casos se ejecutaron en ambas versiones.
+La versión original contiene tres fallos asociados a dos defectos.
+La versión corregida supera los seis casos con expectativas idénticas.
+HTTP, SQLite y Chromium son reales y locales. No se evaluó Render.

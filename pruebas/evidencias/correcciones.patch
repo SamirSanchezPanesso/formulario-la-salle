@@ -1,0 +1,41 @@
+--- a/Form/formulario/validators.py
++++ b/Form/formulario/validators.py
+@@ -6,10 +6,14 @@
+     fields = ["name", "email", "subject", "message"]
+     errors = {}
+     for field in fields:
+-        value = str(data.get(field, "")).strip()
+-        if not value:
++        value = data.get(field, "")
++        if not isinstance(value, str):
++            errors[field] = "Este campo debe ser texto."
++        elif not value.strip():
+             errors[field] = "Este campo es obligatorio."
+-    email = str(data.get("email", "")).strip()
+-    if email and not EMAIL_PATTERN.fullmatch(email):
+-        errors["email"] = "Ingresa un correo electrónico válido."
++    email = data.get("email", "")
++    if isinstance(email, str):
++        email = email.strip()
++        if email and not EMAIL_PATTERN.fullmatch(email):
++            errors["email"] = "Ingresa un correo electrónico válido."
+     return errors
+--- a/Form/formulario/static/index.html
++++ b/Form/formulario/static/index.html
+@@ -4,7 +4,7 @@
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Formulario de contacto La Salle</title>
+-<link rel="stylesheet" href="./styles.css">
++<link rel="stylesheet" href="/static/styles.css">
+ </head>
+ <body>
+ <main class="shell">
+@@ -40,6 +40,6 @@
+ </form>
+ </section>
+ </main>
+-<script src="./app.js"></script>
++<script src="/static/app.js"></script>
+ </body>
+ </html>
