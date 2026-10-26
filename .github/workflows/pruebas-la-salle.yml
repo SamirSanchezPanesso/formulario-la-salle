@@ -1,0 +1,53 @@
+
+name: Pruebas de software La Salle
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'pruebas/**'
+      - 'Form/formulario/**'
+      - '.github/workflows/pruebas-la-salle.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  seis-casos:
+    name: Ejecutar seis casos en dos versiones
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar Playwright
+        working-directory: pruebas
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Ejecutar las seis pruebas
+        run: |
+          python pruebas/reproducir.py --source . --output pruebas/resultados_nuevos
+
+      - name: Guardar evidencias
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-pruebas-la-salle
+          path: pruebas/resultados_nuevos/
+          if-no-files-found: warn
+          retention-days: 30
