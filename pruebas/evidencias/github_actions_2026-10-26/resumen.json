@@ -1,0 +1,72 @@
+{
+  "source_commit_expected": "e4fdc4a7fc8f487cee1f6dc0c165512e2c547688",
+  "source_commit_observed": "b7276b23b93fd9a7cfda9ea5c104a797fd4b2497",
+  "application_verified_by": "source_sha256_against_archived_baseline",
+  "source_sha256": {
+    "Form/formulario/app.py": "9218ea178312aa193bfe8de586f081b598b7730a5c4a175f2fa0c463f4dc5c8f",
+    "Form/formulario/config.py": "99c7c7f2a1a8a5a3d3dbab3dac982df2091f161bad317e309f8a3b45514f8f94",
+    "Form/formulario/static/app.js": "ae0f2413c74cd0aa1e637907c478f786187b2f40fce40ce66d10b0aab87a0c43",
+    "Form/formulario/static/index.html": "3efa0127c80d0142ef3b01055c9fbd57885db8609d0eac7c10e5ba52307cf7b1",
+    "Form/formulario/static/styles.css": "e60f72ee6e97351392cd38974deefd5c50b1955386ca6cbc2314eca6c00e5bb7",
+    "Form/formulario/storage.py": "25a47d494bc9c956e5b3831ed320ed0832cbeaba05fe3a6910d8f8f8f9ae766b",
+    "Form/formulario/tests/test_cases.py": "f35c2af2c41999720e80f2a925d76e7e1221989660a26db5788d68688f87575d",
+    "Form/formulario/validators.py": "d1f4e172189f6c61c786a78e3506778e55648d76e5229c6b0cf819ed418ac167"
+  },
+  "suite_sha256": {
+    "instalar_chromium_linux.py": "6b0ec01e61083b44d4d81fc651a82fa68cf74a5a8704e8caaa77f73400cd25a9",
+    "package-lock.json": "ed3f7c18dceb6ebf2cbedf0b4fde921a46b7dce6f1eb4398d50e4aefdbf6fee0",
+    "package.json": "27a8c5a36af47a338a8325934e217f0baefd4573301f63048c703bb1e1b3e5d2",
+    "reproducir.py": "5b36a8752a830efa5ac7bc869397839de4dbf102b12855f5245333f39e87fa3b",
+    "server_local.py": "e2b0728471878831c8843e5b05e6e6b928c721d3c372b0266c35a5833dd91f4f",
+    "tests_backend.py": "70bc7075f8a32ac8564561524df84d2fd8a7988ffbbbb998e482261ea8f9c10d",
+    "tests_funcionales.cjs": "7628dffc951babd5e98d87c1766ee4dab614818fb106aa7928525b9afacaaaf7"
+  },
+  "started_at_utc": "2026-10-26T18:07:01.966862+00:00",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.12.15",
+  "node": "v22.23.3",
+  "scope": "Local copies only, APP_ENV=testing, temporary SQLite, real HTTP and Chromium",
+  "cases": [
+    "U01",
+    "U02",
+    "I01",
+    "I02",
+    "F01",
+    "F02"
+  ],
+  "modifications": [
+    "Form/formulario/validators.py",
+    "Form/formulario/static/index.html"
+  ],
+  "variants": {
+    "baseline": {
+      "backend_exit_code": 1,
+      "functional_exit_code": 1,
+      "passed": 3,
+      "failed": 3,
+      "results": {
+        "U01": "APROBADO",
+        "U02": "FALLIDO",
+        "I01": "APROBADO",
+        "I02": "FALLIDO",
+        "F01": "FALLIDO",
+        "F02": "APROBADO"
+      }
+    },
+    "corregido": {
+      "backend_exit_code": 0,
+      "functional_exit_code": 0,
+      "passed": 6,
+      "failed": 0,
+      "results": {
+        "U01": "APROBADO",
+        "U02": "APROBADO",
+        "I01": "APROBADO",
+        "I02": "APROBADO",
+        "F01": "APROBADO",
+        "F02": "APROBADO"
+      }
+    }
+  },
+  "finished_at_utc": "2026-10-26T18:07:08.479865+00:00"
+}

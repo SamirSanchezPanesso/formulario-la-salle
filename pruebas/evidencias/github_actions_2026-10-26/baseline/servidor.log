@@ -1,0 +1,10 @@
+2026-10-26 18:07:04,421 INFO 127.0.0.1 - "GET / HTTP/1.1" 200 -
+2026-10-26 18:07:04,433 INFO 127.0.0.1 - code 404, message Not Found
+2026-10-26 18:07:04,433 INFO 127.0.0.1 - "GET /styles.css HTTP/1.1" 404 -
+2026-10-26 18:07:04,433 INFO 127.0.0.1 - code 404, message Not Found
+2026-10-26 18:07:04,433 INFO 127.0.0.1 - "GET /app.js HTTP/1.1" 404 -
+2026-10-26 18:07:05,046 INFO 127.0.0.1 - "GET /static/index.html HTTP/1.1" 200 -
+2026-10-26 18:07:05,057 INFO 127.0.0.1 - "GET /static/styles.css HTTP/1.1" 200 -
+2026-10-26 18:07:05,057 INFO 127.0.0.1 - "GET /static/app.js HTTP/1.1" 200 -
+2026-10-26 18:07:05,073 INFO 127.0.0.1 - "GET /api/environment HTTP/1.1" 200 -
+2026-10-26 18:07:05,687 INFO 127.0.0.1 - "POST /api/contact HTTP/1.1" 422 -

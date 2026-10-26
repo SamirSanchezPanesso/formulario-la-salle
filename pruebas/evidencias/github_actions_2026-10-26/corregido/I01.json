@@ -1,0 +1,98 @@
+{
+  "id": "I01",
+  "name": "Alta válida y persistencia real en SQLite",
+  "inputs": {
+    "name": "  Ana Prueba  ",
+    "email": "  ana.prueba@example.com  ",
+    "subject": "  Consulta académica  ",
+    "message": "  Solicito información del programa.  "
+  },
+  "expected": {
+    "http_status": 201,
+    "ok": true,
+    "new_rows": 1,
+    "stored_fields": {
+      "name": "Ana Prueba",
+      "email": "ana.prueba@example.com",
+      "subject": "Consulta académica",
+      "message": "Solicito información del programa."
+    }
+  },
+  "observed": {
+    "request": {
+      "method": "POST",
+      "path": "/api/contact"
+    },
+    "response": {
+      "status": 201,
+      "headers": {
+        "Server": "BaseHTTP/0.6 Python/3.12.15",
+        "Date": "Mon, 26 Oct 2026 18:07:05 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "73",
+        "Cache-Control": "no-store",
+        "Access-Control-Allow-Origin": "http://127.0.0.1:33803",
+        "Vary": "Origin",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400"
+      },
+      "body": {
+        "ok": true,
+        "message": "Tu mensaje fue enviado correctamente.",
+        "id": 1
+      }
+    },
+    "rows_before": [],
+    "rows_after": [
+      {
+        "id": 1,
+        "name": "Ana Prueba",
+        "email": "ana.prueba@example.com",
+        "subject": "Consulta académica",
+        "message": "Solicito información del programa.",
+        "environment": "testing",
+        "created_at": "2026-10-26T18:07:05.893792+00:00"
+      }
+    ]
+  },
+  "actual_assertions": [
+    {
+      "label": "La API responde HTTP 201",
+      "passed": true
+    },
+    {
+      "label": "La respuesta declara ok=true",
+      "passed": true
+    },
+    {
+      "label": "SQLite contiene exactamente una nueva fila",
+      "passed": true
+    },
+    {
+      "label": "Los cuatro campos se guardan sin espacios externos",
+      "passed": true
+    },
+    {
+      "label": "La fila pertenece al ambiente testing",
+      "passed": true
+    },
+    {
+      "label": "El id devuelto coincide con la fila persistida",
+      "passed": true
+    }
+  ],
+  "status": "APROBADO",
+  "started_at_utc": "2026-10-26T18:07:05.873924+00:00",
+  "finished_at_utc": "2026-10-26T18:07:05.895494+00:00",
+  "duration_seconds": 0.02157,
+  "variant": "corregido",
+  "execution": "real local execution",
+  "environment": {
+    "APP_ENV": "testing",
+    "base_url": "http://127.0.0.1:33803",
+    "database_scope": "temporary copy of the application",
+    "additional_allowed_origin": "http://127.0.0.1:33803",
+    "python_version": "3.12.15"
+  }
+}

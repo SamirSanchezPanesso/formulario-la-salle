@@ -1,0 +1,40 @@
+{
+  "id": "U01",
+  "name": "Campos de texto válidos con espacios externos",
+  "inputs": {
+    "name": "  Ana Prueba  ",
+    "email": "  ana.prueba@example.com  ",
+    "subject": "  Consulta académica  ",
+    "message": "  Solicito información del programa.  "
+  },
+  "expected": {
+    "errors": {}
+  },
+  "observed": {
+    "errors": {},
+    "input_unchanged": true
+  },
+  "actual_assertions": [
+    {
+      "label": "validate_contact devuelve un diccionario vacío",
+      "passed": true
+    },
+    {
+      "label": "La validación no altera la entrada",
+      "passed": true
+    }
+  ],
+  "status": "APROBADO",
+  "started_at_utc": "2026-10-26T18:07:02.519244+00:00",
+  "finished_at_utc": "2026-10-26T18:07:02.519304+00:00",
+  "duration_seconds": 4.6e-05,
+  "variant": "baseline",
+  "execution": "real local execution",
+  "environment": {
+    "APP_ENV": "testing",
+    "base_url": "http://127.0.0.1:46771",
+    "database_scope": "temporary copy of the application",
+    "additional_allowed_origin": "http://127.0.0.1:46771",
+    "python_version": "3.12.15"
+  }
+}

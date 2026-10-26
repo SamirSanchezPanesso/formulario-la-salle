@@ -1,0 +1,166 @@
+{
+  "id": "F02",
+  "variant": "baseline",
+  "name": "Correo inválido con retroalimentación visible",
+  "started_at_utc": "2026-10-26T18:07:04.988Z",
+  "execution": "real local Chromium execution, no HTTP mocks",
+  "inputs": {
+    "name": "Ana Prueba",
+    "email": "correo-invalido",
+    "subject": "Consulta académica",
+    "message": "Solicito información del programa."
+  },
+  "expected": {
+    "page": "/static/index.html",
+    "post_status": 422,
+    "email_error": "Ingresa un correo electrónico válido.",
+    "new_rows": 0,
+    "button_enabled": true
+  },
+  "actual_assertions": [
+    {
+      "label": "La página HTML responde HTTP 200",
+      "passed": true
+    },
+    {
+      "label": "La hoja de estilos responde HTTP 200",
+      "passed": true
+    },
+    {
+      "label": "El JavaScript responde HTTP 200",
+      "passed": true
+    },
+    {
+      "label": "La interfaz muestra el ambiente testing",
+      "passed": true
+    },
+    {
+      "label": "El envío responde HTTP 422",
+      "passed": true
+    },
+    {
+      "label": "El error aparece junto al correo",
+      "passed": true
+    },
+    {
+      "label": "El estado visual indica fallo",
+      "passed": true
+    },
+    {
+      "label": "La respuesta identifica el campo email",
+      "passed": true
+    },
+    {
+      "label": "SQLite no recibe filas inválidas",
+      "passed": true
+    },
+    {
+      "label": "El botón vuelve a quedar habilitado",
+      "passed": true
+    }
+  ],
+  "observed": {
+    "http": [
+      {
+        "method": "GET",
+        "path": "/static/index.html",
+        "status": 200,
+        "resource_type": "document"
+      },
+      {
+        "method": "GET",
+        "path": "/static/styles.css",
+        "status": 200,
+        "resource_type": "stylesheet"
+      },
+      {
+        "method": "GET",
+        "path": "/static/app.js",
+        "status": 200,
+        "resource_type": "script"
+      },
+      {
+        "method": "GET",
+        "path": "/api/environment",
+        "status": 200,
+        "resource_type": "fetch"
+      },
+      {
+        "method": "POST",
+        "path": "/api/contact",
+        "status": 422,
+        "resource_type": "fetch"
+      }
+    ],
+    "console_errors": [
+      "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+    ],
+    "rows_before": [],
+    "dom_after_load": {
+      "title": "Formulario de contacto La Salle",
+      "environment": "testing",
+      "status": "",
+      "status_class": "status",
+      "email_error": "",
+      "name_error": "",
+      "button_disabled": false,
+      "field_values": {
+        "name": "",
+        "email": "",
+        "subject": "",
+        "message": ""
+      },
+      "stylesheet_links": [
+        "http://127.0.0.1:35737/static/styles.css"
+      ],
+      "script_links": [
+        "http://127.0.0.1:35737/static/app.js"
+      ]
+    },
+    "post_response": {
+      "status": 422,
+      "body": {
+        "ok": false,
+        "message": "Revisa los campos del formulario.",
+        "errors": {
+          "email": "Ingresa un correo electrónico válido."
+        }
+      }
+    },
+    "dom_after_submit": {
+      "title": "Formulario de contacto La Salle",
+      "environment": "testing",
+      "status": "Revisa los campos del formulario.",
+      "status_class": "status failure",
+      "email_error": "Ingresa un correo electrónico válido.",
+      "name_error": "",
+      "button_disabled": false,
+      "field_values": {
+        "name": "Ana Prueba",
+        "email": "correo-invalido",
+        "subject": "Consulta académica",
+        "message": "Solicito información del programa."
+      },
+      "stylesheet_links": [
+        "http://127.0.0.1:35737/static/styles.css"
+      ],
+      "script_links": [
+        "http://127.0.0.1:35737/static/app.js"
+      ]
+    },
+    "rows_after": []
+  },
+  "environment": {
+    "APP_ENV": "testing",
+    "base_url": "http://127.0.0.1:35737",
+    "additional_allowed_origin": "http://127.0.0.1:35737",
+    "browser": "Chromium",
+    "browser_version": "151.0.7922.34",
+    "node_version": "v22.23.3",
+    "playwright_version": "1.62.1",
+    "database_scope": "temporary copy of the application"
+  },
+  "finished_at_utc": "2026-10-26T18:07:05.733Z",
+  "duration_seconds": 0.745,
+  "status": "APROBADO"
+}

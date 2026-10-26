@@ -1,0 +1,10 @@
+2026-10-26 18:07:06,985 INFO 127.0.0.1 - "GET / HTTP/1.1" 200 -
+2026-10-26 18:07:07,000 INFO 127.0.0.1 - "GET /static/styles.css HTTP/1.1" 200 -
+2026-10-26 18:07:07,000 INFO 127.0.0.1 - "GET /static/app.js HTTP/1.1" 200 -
+2026-10-26 18:07:07,027 INFO 127.0.0.1 - "GET /api/environment HTTP/1.1" 200 -
+2026-10-26 18:07:07,655 INFO 127.0.0.1 - "POST /api/contact HTTP/1.1" 201 -
+2026-10-26 18:07:07,765 INFO 127.0.0.1 - "GET /static/index.html HTTP/1.1" 200 -
+2026-10-26 18:07:07,777 INFO 127.0.0.1 - "GET /static/styles.css HTTP/1.1" 200 -
+2026-10-26 18:07:07,777 INFO 127.0.0.1 - "GET /static/app.js HTTP/1.1" 200 -
+2026-10-26 18:07:07,781 INFO 127.0.0.1 - "GET /api/environment HTTP/1.1" 200 -
+2026-10-26 18:07:08,385 INFO 127.0.0.1 - "POST /api/contact HTTP/1.1" 422 -
