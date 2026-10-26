@@ -22,7 +22,6 @@ Seis pruebas ejecutadas el 26-10-2026 sobre dos copias **locales**: versión ori
 - [Ejecutor y generación de nuevas evidencias](reproducir.py)
 - [Servidor local aislado](server_local.py)
 - [Dependencias JavaScript](package.json)
-- [README con reproducción paso a paso](README.md)
 - [Versión exacta del ejecutor utilizado para las evidencias archivadas](historico/reproducir_v1.py)
 
 ## Registros de ejecución y defectos
