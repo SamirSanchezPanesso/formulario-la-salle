@@ -1,0 +1,2 @@
+# Python 3.10 o superior. La aplicación utiliza solo la biblioteca estándar.
+# Este archivo se conserva para el comando de construcción de Render.

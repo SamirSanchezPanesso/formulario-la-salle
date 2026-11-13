@@ -1,11 +1,24 @@
+# Copia compatible con la ubicación anterior. Usar preferentemente /render.yaml.
+# Blueprint opcional. Para un servicio ya creado, usar Settings en Render.
+# Este archivo está en la RAÍZ del repositorio.
 services:
   - type: web
-    name: formulario-contacto-lasalle
+    name: formulario-la-salle
     runtime: python
-    buildCommand: echo "Sin dependencias externas"
+    rootDir: Form/formulario
+    buildCommand: python -m pip install -r requirements.txt
     startCommand: python app.py
+    healthCheckPath: /health
+    plan: free
+    autoDeployTrigger: commit
     envVars:
       - key: APP_ENV
         value: production
       - key: HOST
         value: 0.0.0.0
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      - key: ALLOWED_ORIGINS
+        value: https://samirsanchezpanesso.github.io
+# SQLite local es efímero en Render Free. No se declara un disco de pago.
+# Para conservar mensajes se requiere almacenamiento persistente configurado.

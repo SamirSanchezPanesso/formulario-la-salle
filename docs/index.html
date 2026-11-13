@@ -1,45 +1,156 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Formulario de contacto La Salle</title>
-<link rel="stylesheet" href="./styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prototipo académico del formulario de contacto La Salle. Un recorrido claro para escribir, revisar y confirmar una consulta.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#0b4d39">
+  <title>Inicio · Contacto La Salle</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script>
+  <script src="./app.js" defer></script>
 </head>
 <body>
-<main class="shell">
-<section class="brand-panel">
-<div class="brand-mark">LS</div>
-<p class="eyebrow">La Salle</p>
-<h1>Hablemos</h1>
-<p class="lead">Envíanos tu consulta y nuestro equipo podrá revisar la información registrada desde un ambiente controlado.</p>
-<div class="environment-card">
-<span>Ambiente activo</span>
-<strong id="environment">Cargando</strong>
-</div>
-</section>
-<section class="form-panel">
-<p class="eyebrow">Contacto</p>
-<h2>Formulario de contacto La Salle</h2>
-<p class="intro">Completa todos los campos. Validaremos el correo antes de almacenar el mensaje.</p>
-<form id="contact-form" novalidate>
-<label for="name">Nombre</label>
-<input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre">
-<p class="error" id="name-error"></p>
-<label for="email">Correo electrónico</label>
-<input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com">
-<p class="error" id="email-error"></p>
-<label for="subject">Asunto</label>
-<input id="subject" name="subject" type="text" placeholder="Motivo de contacto">
-<p class="error" id="subject-error"></p>
-<label for="message">Mensaje</label>
-<textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje"></textarea>
-<p class="error" id="message-error"></p>
-<button type="submit">Enviar mensaje</button>
-<div id="status" class="status" role="status" aria-live="polite"></div>
-</form>
-</section>
-</main>
-<script src="./app.js"></script>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="site-wrap">
+    <header class="site-header">
+      <a class="brand" href="#/inicio" aria-label="La Salle Contacto, volver al inicio">
+        <span class="brand-mark" aria-hidden="true">LS<span class="brand-dot"></span></span>
+        <span class="brand-text"><strong>La Salle</strong><span>Espacio de contacto</span></span>
+      </a>
+      <nav aria-label="Navegación principal">
+        <a href="#/inicio" data-nav="inicio" aria-current="page">Inicio</a>
+        <a href="#/contacto" data-nav="contacto">Contacto</a>
+      </nav>
+      <span class="mode-pill" id="mode-pill"><span aria-hidden="true"></span>Fórmulario</span>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <noscript><p class="noscript">Activa JavaScript para recorrer el formulario y sus estados. También puedes consultar las capturas incluidas en la entrega.</p></noscript>
+
+      <section id="screen-inicio" data-screen="inicio" aria-labelledby="title-inicio">
+        <div class="home-hero">
+          <div class="hero-copy">
+            <p class="eyebrow light"><span></span>Un espacio para tus preguntas</p>
+            <h1 id="title-inicio" tabindex="-1">Estamos para<br>escucharte<span class="lime-dot">.</span></h1>
+            <p class="hero-lead">Una consulta comienza con un mensaje. Cuéntanos qué necesitas de forma sencilla y revisa cada paso con tranquilidad.</p>
+            <a class="button button-lime" href="#/contacto">Escribir una consulta <span aria-hidden="true">→</span></a>
+            <p class="hero-note" id="home-mode-note">Demostración académica. El envío es simulado.</p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="art-orbit orbit-one"></span><span class="art-orbit orbit-two"></span>
+            <div class="art-label"><span class="small-check">✓</span>Todo empieza por una pregunta</div>
+            <div class="paper paper-back"></div>
+            <div class="paper paper-front">
+              <div class="paper-heading"><span class="paper-dot"></span>Hablemos</div>
+              <div class="paper-line long"></div><div class="paper-line medium"></div>
+              <div class="paper-message"><span>Hola, me gustaría saber…</span><div class="paper-line"></div><div class="paper-line short"></div></div>
+              <div class="paper-send">Tu mensaje <span>→</span></div>
+            </div>
+            <div class="art-seal">Tu voz<br><strong>cuenta.</strong></div>
+            <span class="art-spark spark-one">✳︎</span><span class="art-spark spark-two">+</span>
+          </div>
+        </div>
+        <section class="steps-section" aria-labelledby="steps-title">
+          <div class="steps-heading"><p class="eyebrow">Un recorrido sencillo</p><h2 id="steps-title">De tu pregunta al siguiente paso</h2></div>
+          <ol class="steps-list">
+            <li><span class="step-number">01</span><div><h3>Escribe</h3><p>Indica tu nombre, un correo y el motivo de tu consulta.</p></div></li>
+            <li><span class="step-number">02</span><div><h3>Revisa</h3><p>Si falta algo, te indicaremos dónde y cómo corregirlo.</p></div></li>
+            <li><span class="step-number">03</span><div><h3>Confirma</h3><p>Comprueba el resultado y vuelve al inicio cuando termines.</p></div></li>
+          </ol>
+        </section>
+      </section>
+
+      <section id="screen-contacto" data-screen="contacto" aria-labelledby="title-contacto" hidden>
+        <a class="back-link" href="#/inicio"><span aria-hidden="true">←</span> Volver al inicio</a>
+        <div class="contact-layout">
+          <aside class="contact-intro">
+            <p class="eyebrow">Contacto La Salle</p>
+            <h1 id="title-contacto" tabindex="-1">Cuéntanos.<br>Te leemos<span class="green-dot">.</span></h1>
+            <p class="intro-text">Escribe tu consulta con tus propias palabras. Te ayudaremos a revisar la información antes de continuar.</p>
+            <div class="side-rule"></div>
+            <h2>Antes de empezar</h2>
+            <ul class="check-list">
+              <li><span aria-hidden="true">✓</span>Ten a mano un correo de contacto.</li>
+              <li><span aria-hidden="true">✓</span>Resume el motivo en el asunto.</li>
+              <li><span aria-hidden="true">✓</span>Explica qué necesitas en el mensaje.</li>
+            </ul>
+            <p class="academic-note" id="form-mode-note">Estás en una prueba académica. Usa datos ficticios: no se enviarán correos ni se guardará tu consulta.</p>
+            <details class="help-details">
+              <summary>¿Qué ocurre al terminar?</summary>
+              <p id="help-mode-text">Verás una confirmación de ejemplo. Si hay un error, podrás corregirlo sin volver a escribir todo.</p>
+            </details>
+          </aside>
+
+          <div class="form-card">
+            <div class="form-heading"><div><p class="eyebrow">Tu consulta</p><h2>Formulario de contacto</h2></div><span class="form-icon" aria-hidden="true">→</span></div>
+            <p class="required-note">Todos los campos son obligatorios.</p>
+
+            <section class="error-summary" id="error-summary" role="alert" aria-labelledby="error-summary-title" tabindex="-1" hidden>
+              <h3 id="error-summary-title">Revisa estos datos antes de continuar</h3>
+              <p>Tu información sigue en el formulario.</p>
+              <ul id="error-list"></ul>
+            </section>
+            <div class="connection-message" id="connection-message" role="alert" tabindex="-1" hidden></div>
+
+            <form id="contact-form" novalidate>
+              <div class="two-fields">
+                <div class="field">
+                  <label for="name">Nombre completo</label>
+                  <input id="name" name="name" type="text" autocomplete="name" required minlength="2" placeholder="Ej. Elena García" aria-describedby="name-help name-error">
+                  <p class="field-help" id="name-help">Entre 2 y 100 caracteres.</p>
+                  <p class="field-error" id="name-error" hidden></p>
+                </div>
+                <div class="field">
+                  <label for="email">Correo electrónico</label>
+                  <input id="email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required maxlength="254" placeholder="nombre@ejemplo.com" aria-describedby="email-help email-error">
+                  <p class="field-help" id="email-help">Incluye @ y el dominio del correo.</p>
+                  <p class="field-error" id="email-error" hidden></p>
+                </div>
+              </div>
+              <div class="field">
+                <label for="subject">Asunto</label>
+                <input id="subject" name="subject" type="text" required minlength="3" placeholder="¿Sobre qué quieres preguntar?" aria-describedby="subject-help subject-error">
+                <p class="field-help" id="subject-help">Un título breve, de 3 a 120 caracteres.</p>
+                <p class="field-error" id="subject-error" hidden></p>
+              </div>
+              <div class="field message-field">
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" rows="4" required minlength="10" placeholder="Cuéntanos un poco más para entender tu consulta…" aria-describedby="message-help message-error message-counter"></textarea>
+                <div class="message-meta"><p class="field-help" id="message-help">Entre 10 y 2000 caracteres.</p><span id="message-counter">0 / 2000</span></div>
+                <p class="field-error" id="message-error" hidden></p>
+              </div>
+              <div class="form-actions">
+                <button class="button button-primary" type="submit" id="submit-button"><span id="submit-label">Enviar consulta de prueba</span><span class="button-arrow" aria-hidden="true">→</span></button>
+                <button class="text-button" id="example-button" type="button">Usar datos de ejemplo</button>
+              </div>
+              <p class="form-bottom-note" id="send-note">Esta demostración no envía mensajes a La Salle.</p>
+              <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-confirmacion" data-screen="confirmacion" aria-labelledby="title-confirmacion" hidden>
+        <div class="confirmation-layout">
+          <div class="success-symbol" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M13 25l7 7 16-18" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p class="eyebrow" id="confirmation-kicker">Recorrido completado</p>
+          <h1 id="title-confirmacion" tabindex="-1">Envío de prueba<br>completado<span class="green-dot">.</span></h1>
+          <p class="confirmation-lead" id="confirmation-description">Has completado el recorrido del formulario.</p>
+          <dl class="receipt">
+            <div><dt id="reference-label">Referencia de prueba</dt><dd id="receipt-reference"></dd></div>
+            <div><dt>Correo indicado</dt><dd id="receipt-email"></dd></div>
+            <div><dt>Asunto</dt><dd id="receipt-subject"></dd></div>
+          </dl>
+          <p class="confirmation-note" id="confirmation-note">El envío es simulado. No se han enviado correos ni se ha registrado una consulta real.</p>
+          <div class="confirmation-actions"><a class="button button-primary" href="#/inicio">Volver al inicio <span aria-hidden="true">→</span></a><button type="button" class="button button-outline" id="another-button">Escribir otra consulta</button></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><p><strong>La Salle</strong> <span class="footer-divider" aria-hidden="true">/</span> Proyecto de Ingeniería de Software</p><p id="footer-note"></p></footer>
+  </div>
 </body>
 </html>

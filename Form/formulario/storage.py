@@ -1,5 +1,8 @@
+"""Almacenamiento SQLite compatible con la tabla de la versión original."""
+
 import sqlite3
 from datetime import datetime, timezone
+from pathlib import Path
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS contacts (
@@ -13,19 +16,33 @@ CREATE TABLE IF NOT EXISTS contacts (
 )
 """
 
+
 def init_database(path):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(path) as connection:
-        connection.execute(SCHEMA)
-        connection.commit()
+    """Crea la tabla solamente si falta; nunca borra mensajes existentes."""
+    ruta = Path(path)
+    ruta.parent.mkdir(parents=True, exist_ok=True)
+    with sqlite3.connect(ruta, timeout=5) as conexion:
+        conexion.execute(SCHEMA)
+
 
 def save_contact(path, data, environment):
+    """Guarda un contacto validado y devuelve su identificador.
+
+    Los parámetros SQL impiden interpretar texto como instrucciones SQL.
+    Se abre una conexión por operación para no compartirla entre hilos.
+    La fecha se conserva en UTC y la estructura de la base sigue siendo igual.
+    """
     init_database(path)
-    created_at = datetime.now(timezone.utc).isoformat()
-    with sqlite3.connect(path) as connection:
-        cursor = connection.execute(
-            "INSERT INTO contacts (name, email, subject, message, environment, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-            (data["name"].strip(), data["email"].strip(), data["subject"].strip(), data["message"].strip(), environment, created_at)
+    fecha = datetime.now(timezone.utc).isoformat()
+    with sqlite3.connect(path, timeout=5) as conexion:
+        cursor = conexion.execute(
+            "INSERT INTO contacts "
+            "(name, email, subject, message, environment, created_at) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            (
+                data["name"].strip(), data["email"].strip(),
+                data["subject"].strip(), data["message"].strip(),
+                environment, fecha,
+            ),
         )
-        connection.commit()
         return cursor.lastrowid
