@@ -1,53 +1,65 @@
-
-name: Pruebas de software La Salle
+name: Pruebas del rediseño La Salle
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - 'pruebas/**'
+      - 'docs/**'
       - 'Form/formulario/**'
+      - 'tools/sincronizar_frontend.py'
+      - 'pruebas_redisenio/**'
+      - '.github/workflows/pruebas-la-salle.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'Form/formulario/**'
+      - 'tools/sincronizar_frontend.py'
+      - 'pruebas_redisenio/**'
       - '.github/workflows/pruebas-la-salle.yml'
 
 permissions:
   contents: read
 
-jobs:
-  seis-casos:
-    name: Ejecutar seis casos en dos versiones
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
+defaults:
+  run:
+    # Bash explícito aplica -eo pipefail: tee no oculta un fallo de unittest.
+    shell: bash
 
+jobs:
+  verificar:
+    name: Python, sincronización y comportamiento DOM
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
-
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-
+          python-version: '3.12.14'
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-
-      - name: Instalar Playwright
-        working-directory: pruebas
+          node-version: '24'
+      - name: Ejecutar 22 pruebas del backend con SQLite temporal
         run: |
-          npm install --no-audit --no-fund
-          npx playwright install --with-deps chromium
-
-      - name: Ejecutar las seis pruebas
-        run: |
-          python pruebas/reproducir.py --source . --output pruebas/resultados_nuevos
-
-      - name: Guardar evidencias
+          mkdir -p resultados_ci
+          python -m unittest discover -s Form/formulario/tests -p test_redisenio_backend.py -v 2>&1 | tee resultados_ci/backend.log
+      - name: Comprobar igualdad entre Pages y Render
+        run: python tools/sincronizar_frontend.py --comprobar
+      - name: Instalar herramientas de pruebas DOM
+        working-directory: pruebas_redisenio
+        run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Ejecutar escenarios DOM con red simulada
+        run: node pruebas_redisenio/probar_dom.cjs --output resultados_ci
+      - name: Guardar resultados
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: evidencias-pruebas-la-salle
-          path: pruebas/resultados_nuevos/
+          name: resultados-redisenio-la-salle
+          path: resultados_ci/
           if-no-files-found: warn
           retention-days: 30
+# La captura opcional con Chromium no se ejecuta en esta CI.
+# El workflow de la entrega anterior se conserva en pruebas/historico/.
